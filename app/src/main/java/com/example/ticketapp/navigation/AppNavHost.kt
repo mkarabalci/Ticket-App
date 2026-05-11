@@ -7,7 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.ticketapp.screen.HomeScreen
 import com.example.ticketapp.screen.LoginScreen
+import com.example.ticketapp.screen.RegisterScreen
 
 
 @Composable
@@ -16,15 +18,29 @@ fun AppNavHost(
     //authRepository: AuthRepository = koinInject()
 )
 {
-    NavHost(navController=navController, startDestination = Login) {
-        composable<Login>{
+    NavHost(navController = navController, startDestination = Login) {
+        composable<Login> {
             LoginScreen(
-                onLoginSuccess = {},
-                onNavigateToRegister = {navController.navigate(Register)}
+                onLoginSuccess = {
+                    navController.navigate(Home) {
+                        popUpTo(Login) { inclusive = true }  // Login'e geri dönemesin
+                    }
+                },
+                onNavigateToRegister = { navController.navigate(Register) }
             )
         }
         composable<Register> {
-            Text("Register Screen")
+            RegisterScreen(
+                onRegisterSuccess = {
+                    navController.navigate(Home) {
+                        popUpTo(Login) { inclusive = true }  // arkadaki ekranları temizle
+                    }
+                },
+                onNavigateToLogin = { navController.popBackStack() }
+            )
+        }
+        composable<Home> {
+            HomeScreen()
         }
     }
 }

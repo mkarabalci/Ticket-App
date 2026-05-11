@@ -41,8 +41,16 @@ class AuthRepositoryImpl(
     override suspend fun register(
         email: String,
         password: String
-    ): Result<AuthSession> {
-        TODO("Not yet implemented")
+    ): Result<AuthSession> = runCatchingApi {
+        authApi.register(CredentialsDto(email = email, password = password)) //Retrofit'in oluşturduğu API client'a istek atıyo
+    }.map { i ->
+        AuthSession(
+            user = User(
+                i.user.id, i.user.email, UserRole.fromApi(i.user.role)
+            ),
+            accessToken = i.accessToken,
+            refreshToken = i.refreshToken
+        )
     }
 
     override suspend fun logout(): Result<Unit> {
