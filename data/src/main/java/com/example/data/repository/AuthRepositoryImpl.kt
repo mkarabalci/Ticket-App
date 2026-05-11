@@ -24,13 +24,18 @@ class AuthRepositoryImpl(
         // jwt'i bi yere yaz..
     }
         .map {
-                i -> AuthSession(
+                tokenPairDto -> AuthSession(
             user = User(
-                i.user.id, i.user.email, UserRole.fromApi(i.user.role),
+                tokenPairDto.user.id, tokenPairDto.user.email, UserRole.fromApi(tokenPairDto.user.role),
             ),
-            accessToken = i.accessToken,
-            refreshToken = i.refreshToken)
+            accessToken = tokenPairDto.accessToken,
+            refreshToken = tokenPairDto.refreshToken)
         }
+    /// backend -> (tokenPairDto) accesToken
+    /// backend -> (tokenPairDto) jet
+
+    /// backend -> (tokenPairDto) accessToken -> (AuthSession) accessToken -> tüm uygulama
+    /// backend -> (tokenPairDto) jet -> (AuthSession) accessToken -> tüm uygulama
 
 
     override suspend fun register(
