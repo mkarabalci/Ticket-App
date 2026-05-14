@@ -35,4 +35,6 @@
 - Resmi bir dil kullan
 
 
-## 3. TEST SÜRECİ
+## 3. YORUM SATIRLARI
+
+- Yalnızca kodun kendini açıklayamadığı durumlarda kullanılabilir
