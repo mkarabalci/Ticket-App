@@ -1,10 +1,10 @@
 package com.example.data.di
 
 import com.example.core.domain.AuthRepository
+import com.example.data.local.TokenStore
 import com.example.data.remote.AuthApi
 import com.example.data.repository.AuthRepositoryImpl
 import kotlinx.serialization.json.Json
-
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -35,6 +35,10 @@ val dataModule = module {
         }
     }
 
+    single {
+        TokenStore(context = get())
+    }
+
     // HTTP isteklerini yönetmek..
     single {
         OkHttpClient.Builder()
@@ -54,7 +58,8 @@ val dataModule = module {
 
     single<AuthRepository> {
         AuthRepositoryImpl(
-            authApi = get()
+            authApi = get(),
+            tokenStore = get()
         )
     }
 }

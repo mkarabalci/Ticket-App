@@ -5,15 +5,17 @@ import com.example.core.domain.AuthSession
 import com.example.core.domain.User
 import com.example.core.domain.UserRole
 import com.example.data.dto.CredentialsDto
+import com.example.data.local.TokenStore
 import com.example.data.remote.AuthApi
 import com.example.data.util.runCatchingApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class AuthRepositoryImpl(
-    private val authApi: AuthApi
+    private val authApi: AuthApi,
+    private val tokenStore: TokenStore
 ) : AuthRepository {
-    override val isLoggedIn: Flow<Boolean>
-        get() = TODO("Not yet implemented")
+    override val isLoggedIn: Flow<Boolean> = tokenStore.accessToken.map { it != null }
 
     override suspend fun login(
         email: String,
@@ -22,6 +24,7 @@ class AuthRepositoryImpl(
         authApi.login(CredentialsDto(email = email, password = password))
     }.onSuccess {
         // jwt'i bi yere yaz..
+        tokenStore.save(it.accessToken, it.refreshToken)
     }
         .map {
                 tokenPairDto -> AuthSession(
@@ -31,11 +34,6 @@ class AuthRepositoryImpl(
             accessToken = tokenPairDto.accessToken,
             refreshToken = tokenPairDto.refreshToken)
         }
-    /// backend -> (tokenPairDto) accesToken
-    /// backend -> (tokenPairDto) jet
-
-    /// backend -> (tokenPairDto) accessToken -> (AuthSession) accessToken -> tüm uygulama
-    /// backend -> (tokenPairDto) jet -> (AuthSession) accessToken -> tüm uygulama
 
 
     override suspend fun register(
