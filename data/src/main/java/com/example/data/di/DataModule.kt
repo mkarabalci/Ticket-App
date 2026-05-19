@@ -2,6 +2,7 @@ package com.example.data.di
 
 import com.example.core.domain.AuthRepository
 import com.example.data.local.TokenStore
+import com.example.data.network.AuthInterceptor
 import com.example.data.remote.AuthApi
 import com.example.data.repository.AuthRepositoryImpl
 import kotlinx.serialization.json.Json
@@ -39,9 +40,12 @@ val dataModule = module {
         TokenStore(context = get())
     }
 
+    single { AuthInterceptor(tokenStore = get()) }
+
     // HTTP isteklerini yönetmek..
     single {
-        OkHttpClient.Builder()
+        OkHttpClient.Builder() //burdaki sıra önemlidir
+            .addInterceptor(get<AuthInterceptor>())
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
     }

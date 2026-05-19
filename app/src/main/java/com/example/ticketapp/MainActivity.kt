@@ -18,9 +18,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TicketAppTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    Text("App is ready")
-                }
                 AppNavHost()
             }
         }
