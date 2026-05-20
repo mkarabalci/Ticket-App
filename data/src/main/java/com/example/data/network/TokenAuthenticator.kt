@@ -16,6 +16,9 @@ class TokenAuthenticator(
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         // İstek 401'e düştüğü anda, eğer sistemde jwt-refresh pairi tanımlıysa git refresh ile yeni jwt alıp isteği tekrar dene.
+
+        // İsteğin tekrar tekrar buraya düşmesi -> refresh olsa bile 401 gelebilir
+        if(response.priorResponseCount() >= 1) return null
         val refreshToken = tokenStore.refreshTokenBlocking() ?: return null;
 
 
@@ -47,4 +50,15 @@ class TokenAuthenticator(
     }
 
     private fun Request.signWith(accessToken: String): Request = newBuilder().header("Authorization", "Bearer $accessToken").build()
+
+    private fun Response.priorResponseCount() : Int{
+        var count = 0
+        var prior = priorResponse
+        while(prior != null)
+        {
+            count++
+            prior = prior.priorResponse
+        }
+        return count
+    }
     }
