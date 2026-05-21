@@ -4,7 +4,6 @@ package com.example.ticketapp.navigation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -15,9 +14,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.core.domain.AuthRepository
+import com.example.ticketapp.screen.EventsScreen
 import com.example.ticketapp.screen.HomeScreen
 import com.example.ticketapp.screen.LoginScreen
 import com.example.ticketapp.screen.RegisterScreen
+import com.example.ticketapp.screen.TicketsScreen
 import org.koin.compose.koinInject
 
 
@@ -48,7 +49,16 @@ private fun SplashScreen(){
 private fun AuthedNavHost(navController: NavHostController){
     NavHost(navController=navController, startDestination = Home){
         composable<Home> {
-            Text("Ana Sayfa")
+            HomeScreen(
+                onEventsClick = { navController.navigate(Events) },
+                onTicketsClick = { navController.navigate(Tickets) }
+            )
+        }
+        composable<Events> {
+            EventsScreen()
+        }
+        composable<Tickets> {
+            TicketsScreen()
         }
     }
 }
@@ -58,26 +68,15 @@ private fun UnAuthedNavHost(navController: NavHostController){
     NavHost(navController = navController, startDestination = Login) {
         composable<Login> {
             LoginScreen(
-                onLoginSuccess = {
-                    navController.navigate(Home) {
-                        popUpTo(Login) { inclusive = true }  // Login'e geri dönemesin
-                    }
-                },
+                onLoginSuccess = {},
                 onNavigateToRegister = { navController.navigate(Register) }
             )
         }
         composable<Register> {
             RegisterScreen(
-                onRegisterSuccess = {
-                    navController.navigate(Home) {
-                        popUpTo(Login) { inclusive = true }  // arkadaki ekranları temizle
-                    }
-                },
+                onRegisterSuccess = {},
                 onNavigateToLogin = { navController.popBackStack() }
             )
-        }
-        composable<Home> {
-            HomeScreen()
         }
     }
 }

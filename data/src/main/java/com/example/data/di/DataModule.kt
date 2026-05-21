@@ -1,11 +1,17 @@
 package com.example.data.di
 
 import com.example.core.domain.AuthRepository
+import com.example.core.domain.EventRepository
+import com.example.core.domain.TicketRepository
 import com.example.data.local.TokenStore
 import com.example.data.network.AuthInterceptor
 import com.example.data.network.TokenAuthenticator
 import com.example.data.remote.AuthApi
+import com.example.data.remote.EventApi
+import com.example.data.remote.TicketApi
 import com.example.data.repository.AuthRepositoryImpl
+import com.example.data.repository.EventRepositoryImpl
+import com.example.data.repository.TicketRepositoryImpl
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -14,6 +20,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlin.jvm.java
 
 private const val BASE_URL = "https://tickets-api.halitkalayci.com/"
 
@@ -51,7 +58,7 @@ val dataModule = module {
     single {
         TokenAuthenticator(
             tokenStore = get(),
-            refreshApiProvider = get(REFRESH_API)
+            refreshApiProvider = { get(REFRESH_API) }
         )
     }
 
@@ -97,10 +104,31 @@ val dataModule = module {
         get<Retrofit>().create(AuthApi::class.java)
     }
 
+
     single<AuthRepository> {
         AuthRepositoryImpl(
             authApi = get(),
             tokenStore = get()
+        )
+    }
+
+    single {
+        get<Retrofit>().create(EventApi::class.java)
+    }
+
+    single<EventRepository> {
+        EventRepositoryImpl(
+            eventApi = get()
+        )
+    }
+
+    single {
+        get<Retrofit>().create(TicketApi::class.java)
+    }
+
+    single<TicketRepository> {
+        TicketRepositoryImpl(
+            ticketApi = get()
         )
     }
 }

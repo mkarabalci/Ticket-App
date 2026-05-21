@@ -61,4 +61,4 @@ class TokenAuthenticator(
         }
         return count
     }
-    }
+}
