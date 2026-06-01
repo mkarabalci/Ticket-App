@@ -1,4 +1,4 @@
-package com.example.core.domain
+package com.example.core.domain.auth
 
 enum class UserRole {
     USER, STAFF, ADMIN;

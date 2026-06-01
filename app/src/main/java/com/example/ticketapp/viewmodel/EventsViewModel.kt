@@ -2,8 +2,8 @@ package com.example.ticketapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.domain.Event
-import com.example.core.domain.EventRepository
+import com.example.core.domain.event.Event
+import com.example.core.domain.event.EventRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,6 +1,7 @@
 package com.example.ticketapp.navigation
 
 
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -13,7 +14,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.core.domain.AuthRepository
+import com.example.core.domain.auth.AuthRepository
 import com.example.ticketapp.screen.EventsScreen
 import com.example.ticketapp.screen.HomeScreen
 import com.example.ticketapp.screen.LoginScreen

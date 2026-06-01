@@ -1,10 +1,10 @@
 package com.example.data.repository
 
-import com.example.core.domain.Event
-import com.example.core.domain.EventRepository
-import com.example.core.domain.TicketType
-import com.example.data.dto.EventDto
-import com.example.data.dto.TicketTypeDto
+import com.example.core.domain.event.Event
+import com.example.core.domain.event.EventRepository
+import com.example.core.domain.event.TicketType
+import com.example.data.dto.event.EventDto
+import com.example.data.dto.event.TicketTypeDto
 import com.example.data.remote.EventApi
 import com.example.data.util.runCatchingApi
 

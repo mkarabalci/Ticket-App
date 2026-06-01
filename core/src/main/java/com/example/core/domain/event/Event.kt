@@ -1,4 +1,6 @@
-package com.example.core.domain
+package com.example.core.domain.event
+
+import com.example.core.domain.event.TicketType
 
 data class Event(
     val id: String,
@@ -8,13 +10,4 @@ data class Event(
     val startsAt: String,
     val endsAt: String,
     val ticketTypes: List<TicketType>
-)
-
-data class TicketType(
-    val id: String,
-    val name: String,
-    val priceCents: Int,
-    val capacity: Int,
-    val soldCount: Int,
-    val remaining: Int
 )

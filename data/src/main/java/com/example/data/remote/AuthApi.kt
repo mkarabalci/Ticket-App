@@ -2,9 +2,9 @@ package com.example.data.remote
 
 
 
-import com.example.data.dto.CredentialsDto
-import com.example.data.dto.RefreshRequestDto
-import com.example.data.dto.TokenPairDto
+import com.example.data.dto.auth.CredentialsDto
+import com.example.data.dto.auth.RefreshRequestDto
+import com.example.data.dto.auth.TokenPairDto
 import retrofit2.http.Body
 import retrofit2.http.POST
 

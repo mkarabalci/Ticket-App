@@ -1,8 +1,8 @@
 package com.example.data.di
 
-import com.example.core.domain.AuthRepository
-import com.example.core.domain.EventRepository
-import com.example.core.domain.TicketRepository
+import com.example.core.domain.auth.AuthRepository
+import com.example.core.domain.event.EventRepository
+import com.example.core.domain.event.TicketRepository
 import com.example.data.local.TokenStore
 import com.example.data.network.AuthInterceptor
 import com.example.data.network.TokenAuthenticator
@@ -24,15 +24,14 @@ import kotlin.jvm.java
 
 private const val BASE_URL = "https://tickets-api.halitkalayci.com/"
 
+//Named Dependencyler
 private val REFRESH_CLIENT = named("refresh_client")
 private val REFRESH_RETROFIT = named("refresh_retrofit")
 private val REFRESH_API = named("refresh_api")
 
-val dataModule = module {
-    // Scope (Kapsam)
-    // 3 temel seçenek
 
-    // Yaşam döngüsündeki bağımlılığın davranış biçimi
+//Prjede ihityaç duyulan her dependecy için (data katmanı özelinde) tanımlama burada yapılır
+val dataModule = module {
 
     // Single (Singleton) -> Uygulama yaşam döngüsü boyunca tek örnek.
     single {

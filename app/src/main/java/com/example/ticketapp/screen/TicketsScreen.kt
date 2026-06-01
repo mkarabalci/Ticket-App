@@ -23,8 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.core.domain.Ticket
-import com.example.core.domain.TicketStatus
+import com.example.core.domain.event.Ticket
+import com.example.core.domain.event.TicketStatus
 import com.example.ticketapp.viewmodel.TicketsViewModel
 import org.koin.androidx.compose.koinViewModel
 

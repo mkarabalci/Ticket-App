@@ -1,6 +1,6 @@
 package com.example.data.network
 
-import com.example.data.dto.RefreshRequestDto
+import com.example.data.dto.auth.RefreshRequestDto
 import com.example.data.local.TokenStore
 import com.example.data.remote.AuthApi
 import kotlinx.coroutines.runBlocking

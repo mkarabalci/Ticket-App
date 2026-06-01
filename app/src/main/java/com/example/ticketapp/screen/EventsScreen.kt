@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.core.domain.Event
+import com.example.core.domain.event.Event
 import com.example.ticketapp.viewmodel.EventsViewModel
 import org.koin.androidx.compose.koinViewModel
 

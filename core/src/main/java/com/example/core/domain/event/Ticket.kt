@@ -1,4 +1,4 @@
-package com.example.core.domain
+package com.example.core.domain.event
 data class Ticket(
     val id: String,
     val qrCode: String,

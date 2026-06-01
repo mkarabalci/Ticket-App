@@ -1,5 +1,6 @@
-package com.example.core.domain
+package com.example.core.domain.auth
 
+import com.example.core.domain.auth.AuthSession
 import kotlinx.coroutines.flow.Flow
 
 // Soyut Sözleşme: ne yapılacağını belirtir, nasıl yapılacağını değil.

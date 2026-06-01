@@ -1,8 +1,8 @@
 package com.example.data.repository
 
-import com.example.core.domain.Ticket
-import com.example.core.domain.TicketRepository
-import com.example.core.domain.TicketStatus
+import com.example.core.domain.event.Ticket
+import com.example.core.domain.event.TicketRepository
+import com.example.core.domain.event.TicketStatus
 import com.example.data.dto.TicketDto
 import com.example.data.remote.TicketApi
 import com.example.data.util.runCatchingApi
