@@ -14,11 +14,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.core.domain.auth.AuthRepository
+import com.example.ticketapp.screen.EventDetailScreen
 import com.example.ticketapp.screen.EventsScreen
 import com.example.ticketapp.screen.HomeScreen
 import com.example.ticketapp.screen.LoginScreen
 import com.example.ticketapp.screen.RegisterScreen
+import com.example.ticketapp.screen.TicketDetailScreen
 import com.example.ticketapp.screen.TicketsScreen
 import org.koin.compose.koinInject
 
@@ -56,10 +59,25 @@ private fun AuthedNavHost(navController: NavHostController){
             )
         }
         composable<Events> {
-            EventsScreen()
+            EventsScreen(onEventClick = { eventId -> navController.navigate(EventDetail(eventId)) })
         }
         composable<Tickets> {
-            TicketsScreen()
+            TicketsScreen(onTicketClick = { ticketId -> navController.navigate(TicketDetail(ticketId)) })
+        }
+        composable<EventDetail> { backStackEntry ->
+            val route = backStackEntry.toRoute<EventDetail>()
+            EventDetailScreen(
+                eventId = route.id,
+                onNavigateToTickets = {
+                    navController.navigate(Tickets) {
+                        popUpTo(Events) { inclusive = false }
+                    }
+                }
+            )
+        }
+        composable<TicketDetail> { backStackEntry ->
+            val route = backStackEntry.toRoute<TicketDetail>()
+            TicketDetailScreen(ticketId = route.id)
         }
     }
 }
@@ -81,3 +99,4 @@ private fun UnAuthedNavHost(navController: NavHostController){
         }
     }
 }
+

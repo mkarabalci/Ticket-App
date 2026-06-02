@@ -3,13 +3,12 @@ package com.example.ticketapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.auth.AuthRepository
-import com.example.data.network.ApiException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import com.example.data.network.NetworkException
+import com.example.core.util.toUserMessage
 
 
 data class LoginUiState(val email: String = "",
@@ -43,15 +42,4 @@ class LoginViewModel(
                 .onFailure { error -> _state.update { it.copy(isLoading = false, errorMessage = error.toUserMessage()) } }
         }
     }
-}
-// Ömürlük
-internal fun Throwable.toUserMessage(): String = when(this)
-{
-    is ApiException -> when(code) {
-        401 -> "Email veya şifre hatalı"
-        in 500..599 -> "Sunucu şu anda cevap veremiyor"
-        else -> "Beklenmeyen bir hata oluştu"
-    }
-    is NetworkException -> "İnternet bağlantısı yok"
-    else -> message ?: "Bilinmeyen bir hata oluştu."
 }

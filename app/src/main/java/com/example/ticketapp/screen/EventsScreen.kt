@@ -1,5 +1,6 @@
 package com.example.ticketapp.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun EventsScreen(
+    onEventClick: (String) -> Unit,
     viewModel: EventsViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -70,7 +72,8 @@ fun EventsScreen(
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         items(uiState.events) { event ->
-                            EventCard(event = event)
+                            EventCard(event = event,
+                                onClick = { onEventClick(event.id) })
                         }
                     }
                 }
@@ -80,9 +83,11 @@ fun EventsScreen(
 }
 
 @Composable
-private fun EventCard(event: Event) {
+private fun EventCard(event: Event, onClick: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(

@@ -1,3 +1,59 @@
 <resources>
     <string name="app_name">Ticket App</string>
+
+    <string name="error_network">İnternet bağlantısı yok</string>
+    <string name="error_server">Sunucu şu anda cevap veremiyor</string>
+    <string name="error_unknown">Beklenmeyen bir hata oluştu</string>
+    <string name="loading">Yükleniyor…</string>
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+    <string name="error_title">Hata</string>
+    <string name="refresh">Yenile</string>
+
+    <string name="label_email">Email</string>
+    <string name="label_password">Şifre</string>
+    <string name="login_title">Giriş Yap</string>
+    <string name="login_button">Giriş Yap</string>
+    <string name="login_no_account">Hesabın yok mu? Kayıt ol</string>
+    <string name="register_title">Kayıt Ol</string>
+    <string name="register_button">Kayıt Ol</string>
+    <string name="register_have_account">Zaten hesabın var mı? Giriş yap</string>
+    <string name="error_invalid_credentials">Email veya şifre hatalı</string>
+    <string name="error_email_taken">Bu email zaten kayıtlı</string>
+    <string name="error_invalid_format">Geçersiz email veya şifre formatı</string>
+    <string name="error_incomplete">Bilgiler eksik veya hatalı</string>
+
+    <string name="home_title">TicketAPP</string>
+    <string name="home_events">Events</string>
+    <string name="home_tickets">Tickets</string>
+    <string name="logout_content_description">Çıkış</string>
+
+    <string name="events_title">events</string>
+    <string name="events_empty">Şu an etkinlik bulunmuyor</string>
+    <string name="events_price_from">Fiyat: %1$d TL\'den başlayan</string>
+
+    <string name="event_detail_ticket_types">Bilet Türleri</string>
+    <string name="event_detail_remaining">%1$d/%2$d kalan</string>
+    <string name="event_detail_price">₺%1$d</string>
+    <string name="event_detail_total">Toplam: ₺%1$d</string>
+    <string name="event_detail_buy">Satın Al</string>
+    <string name="payment_dialog_title">Ödeme Onayı</string>
+    <string name="payment_dialog_message">Toplam ₺%1$d tutarında ödeme yapılacak. Onaylıyor musunuz?</string>
+    <string name="payment_confirm">Onayla</string>
+    <string name="error_capacity_exceeded">Stok yetersiz, lütfen yenileyin</string>
+    <string name="error_already_paid">Bu sipariş zaten ödendi</string>
+    <string name="error_not_owner">Bu siparişe erişim yetkiniz yok</string>
+
+    <string name="tickets_title">My tickets</string>
+    <string name="tickets_empty">Henüz biletin yok</string>
+    <string name="ticket_default_event">Etkinlik</string>
+    <string name="ticket_default_type">Bilet</string>
+
+    it
+    <string name="status_valid">Geçerli</string>
+    <string name="status_used">Kullanıldı</string>
+    <string name="status_cancelled">İptal</string>
+    <string name="status_unknown">Bilinmiyor</string>
+
+    <string name="ticket_detail_qr_description">QR Kod</string>
 </resources>

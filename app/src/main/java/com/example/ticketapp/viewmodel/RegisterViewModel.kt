@@ -4,13 +4,12 @@ package com.example.ticketapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.auth.AuthRepository
-import com.example.data.network.ApiException
-import com.example.data.network.NetworkException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.example.core.util.toUserMessage
 
 data class RegisterUiState(
     val email: String = "",
@@ -19,7 +18,10 @@ data class RegisterUiState(
     val errorMessage: String? = null,
     val isRegistered: Boolean = false
 ) {
-    val canSubmit: Boolean get() = email.isNotBlank() && password.length >= 8 && !isLoading
+    val canSubmit: Boolean get() =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
+                password.length in 8..128 &&
+                !isLoading
 }
 
 class RegisterViewModel(
@@ -41,20 +43,7 @@ class RegisterViewModel(
         viewModelScope.launch {
             authRepository.register(current.email, current.password)
                 .onSuccess { _state.update { it.copy(isLoading = false, isRegistered = true) } }
-                .onFailure { error -> _state.update { it.copy(isLoading = false, errorMessage = error.toRegisterUserMessage()) } }
+                .onFailure { error -> _state.update { it.copy(isLoading = false, errorMessage = error.toUserMessage()) } }
         }
     }
-}
-
-// Register'a özgü hata yönetimi
-internal fun Throwable.toRegisterUserMessage(): String = when(this) {
-    is ApiException -> when(code) {
-        400 -> "Geçersiz email veya şifre formatı"
-        409 -> "Bu email zaten kayıtlı"
-        422 -> "Bilgiler eksik veya hatalı"
-        in 500..599 -> "Sunucu şu anda cevap veremiyor"
-        else -> "Beklenmeyen bir hata oluştu"
-    }
-    is NetworkException -> "İnternet bağlantısı yok"
-    else -> message ?: "Bilinmeyen bir hata oluştu."
 }

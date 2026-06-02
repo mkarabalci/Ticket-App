@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.event.Ticket
 import com.example.core.domain.event.TicketRepository
+import com.example.core.util.toUserMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 
 data class TicketsUiState(
     val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
     val tickets: List<Ticket> = emptyList(),
     val errorMessage: String? = null
 )
@@ -34,16 +36,29 @@ class TicketsViewModel(
             ticketRepository.getMyTickets()
                 .onSuccess { tickets ->
                     _uiState.update {
-                        it.copy(isLoading = false, tickets = tickets, errorMessage = null)
+                        it.copy(isLoading = false, tickets = tickets)
                     }
                 }
                 .onFailure { error ->
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = error.message ?: "Biletler yüklenemedi"
+                            errorMessage = error.toUserMessage()
                         )
                     }
+                }
+        }
+    }
+
+    fun refresh() {
+        _uiState.update { it.copy(isRefreshing = true, errorMessage = null) }
+        viewModelScope.launch {
+            ticketRepository.getMyTickets()
+                .onSuccess { tickets ->
+                    _uiState.update { it.copy(isRefreshing = false, tickets = tickets) }
+                }
+                .onFailure { error ->
+                    _uiState.update { it.copy(isRefreshing = false, errorMessage = error.toUserMessage()) }
                 }
         }
     }

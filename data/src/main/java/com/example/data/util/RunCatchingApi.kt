@@ -1,7 +1,7 @@
 package com.example.data.util
 
-import com.example.data.network.NetworkException
-import com.example.data.network.ApiException
+import com.example.core.network.NetworkException
+import com.example.core.network.ApiException
 import retrofit2.HttpException
 import java.io.IOException
 

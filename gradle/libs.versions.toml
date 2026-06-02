@@ -18,6 +18,8 @@ dataStore = "1.1.1"
 navigationCompose = "2.8.4"
 lifecycleViewModelCompose = "2.8.7"
 foundationLayout = "1.11.2"
+zxing-android-embedded = "4.3.0"
+qrCodeKotlin = "4.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,7 +49,8 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewModelCompose" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
-
+zxing-android-embedded = {group="com.journeyapps", name="zxing-android-embedded",version.ref="zxing-android-embedded"}
+qrcode-kotlin = {group="io.github.g0dkar", name="qrcode-kotlin",version.ref= "qrCodeKotlin"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

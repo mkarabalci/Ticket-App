@@ -3,7 +3,10 @@ data class Ticket(
     val id: String,
     val qrCode: String,
     val status: TicketStatus,
-    val ticketTypeId: String
+    val ticketTypeId: String,
+    val eventName: String = "",
+    val eventDate: String = "",
+    val ticketTypeName: String = ""
 )
 
 enum class TicketStatus {
