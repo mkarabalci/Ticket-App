@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.core.domain.auth.AuthRepository
+import com.example.ticketapp.screen.CheckinScreen
 import com.example.ticketapp.screen.EventDetailScreen
 import com.example.ticketapp.screen.EventsScreen
 import com.example.ticketapp.screen.HomeScreen
@@ -33,11 +34,17 @@ fun AppNavHost(
 )
 {
     val isLoggedIn by authRepository.isLoggedIn.collectAsStateWithLifecycle(initialValue = null)
+    val currentRole by authRepository.currentRole.collectAsStateWithLifecycle(initialValue = null)
 
     when(isLoggedIn)
     {
         null -> SplashScreen()
-        true -> AuthedNavHost(navController)
+        true -> {
+            when (currentRole?.uppercase()) {
+                "STAFF", "ADMIN" -> StaffNavHost(navController)
+                else -> AuthedNavHost(navController)
+            }
+        }
         false -> UnAuthedNavHost(navController)
     }
 }
@@ -46,6 +53,15 @@ fun AppNavHost(
 private fun SplashScreen(){
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
         CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun StaffNavHost(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = Checkin) {
+        composable<Checkin> {
+            CheckinScreen()
+        }
     }
 }
 

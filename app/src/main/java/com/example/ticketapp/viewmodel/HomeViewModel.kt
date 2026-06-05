@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 data class HomeUiState(
     val isEventsLoading: Boolean = false,
+    val isEventsRefreshing: Boolean = false,
     val events: List<Event> = emptyList(),
     val eventsError: String? = null
 )
@@ -29,6 +30,18 @@ class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() 
 
         _state.update { it.copy(isEventsLoading = true, eventsError = null) }
 
+        fetchEvents()
+    }
+
+    fun refreshEvents() {
+        if (_state.value.isEventsRefreshing) return
+
+        _state.update { it.copy(isEventsRefreshing = true, eventsError = null) }
+
+        fetchEvents()
+    }
+
+    private fun fetchEvents() {
         viewModelScope.launch {
             eventRepository.getEvents().fold(
                 onSuccess = {

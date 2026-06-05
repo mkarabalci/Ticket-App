@@ -1,5 +1,6 @@
 package com.example.ticketapp.di
 
+import com.example.ticketapp.viewmodel.CheckinViewModel
 import com.example.ticketapp.viewmodel.EventDetailViewModel
 import com.example.ticketapp.viewmodel.EventsViewModel
 import com.example.ticketapp.viewmodel.HomeViewModel
@@ -19,4 +20,5 @@ val appModule = module {
     viewModelOf(::HomeViewModel)
     viewModelOf(::EventDetailViewModel)
     viewModelOf(::TicketDetailViewModel)
+    viewModelOf(::CheckinViewModel)
 }

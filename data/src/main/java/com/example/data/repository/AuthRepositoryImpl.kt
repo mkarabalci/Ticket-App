@@ -16,6 +16,7 @@ class AuthRepositoryImpl(
     private val tokenStore: TokenStore
 ) : AuthRepository {
     override val isLoggedIn: Flow<Boolean> = tokenStore.accessToken.map { it != null }
+    override val currentRole: Flow<String?> = tokenStore.role
 
     override suspend fun login(
         email: String,
@@ -24,7 +25,7 @@ class AuthRepositoryImpl(
         authApi.login(CredentialsDto(email = email, password = password))
     }.onSuccess {
         // jwt'i bi yere yaz..
-        tokenStore.save(it.accessToken, it.refreshToken)
+        tokenStore.save(it.accessToken, it.refreshToken, it.user.role)
     }
         .map {
                 tokenPairDto -> AuthSession(

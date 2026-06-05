@@ -21,3 +21,5 @@ data class EventDetail(val id: String)
 
 @Serializable
 data class TicketDetail(val id: String)
+
+@Serializable object Checkin
