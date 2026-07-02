@@ -113,6 +113,3 @@ Ticket-App/
 - **USER rolü** → Home → Events / Tickets → Detay ekranları → Satın alma ve QR kod görüntüleme
 - **STAFF / ADMIN rolü** → Doğrudan Check-in ekranına yönlendirilir, kamera ile bilet QR kodu okutup doğrulama yapabilir
 
----
-
-*Bu proje, Turkcell GYGY Android Development Training Program kapsamında geliştirilmiştir.*
